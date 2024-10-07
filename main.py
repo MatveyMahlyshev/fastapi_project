@@ -12,8 +12,5 @@ app.include_router(items_router, tags=["Items"])
 @app.get("/")
 def hello():
     return {"message": "success"}
-
-
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
-
