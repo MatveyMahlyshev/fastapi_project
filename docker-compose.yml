@@ -5,7 +5,28 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbname
+      - DB_PASS=pass
+      - DB_USER=dbuser
     ports:
       - "8000:8000"
     volumes:
       - ./:/fastapi
+    depends_on:
+      - database
+    
+  database:
+    image: postgres:16.4-alpine3.20
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=dbname
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
